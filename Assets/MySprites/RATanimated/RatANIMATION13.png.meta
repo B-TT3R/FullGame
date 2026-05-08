@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 27d353eef46a57f469371cfd7821766f
+guid: 1fce7b1d986f86f49bff1b531692dcc4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2337194852568158969
-    second: how abt this_0
+      213: -1217513650053224460
+    second: RatANIMATION13_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,11 +96,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: how abt this_0
+      name: RatANIMATION13_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9f2523ed5526f6020800000000000000
-      internalID: 2337194852568158969
+      spriteID: 4f7636339c58a1fe0800000000000000
+      internalID: -1217513650053224460
       vertices: []
       indices: 
       edges: []
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      how abt this_0: 2337194852568158969
+      RatANIMATION13_0: -1217513650053224460
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

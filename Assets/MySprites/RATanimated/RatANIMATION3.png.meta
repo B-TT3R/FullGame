@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 459814cbc78f42f49be02a1aa6a548a7
+guid: 9afc6c3eb7c17e048a9ccb6d3e583ccc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1533624189924268217
-    second: Girls Bathroom_0
+      213: -8959033419905182200
+    second: RatANIMATION3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Girls Bathroom_0
+      name: RatANIMATION3_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 351
-        height: 221
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7472e9cbce877bae0800000000000000
-      internalID: -1533624189924268217
+      spriteID: 806d2b3529e1ba380800000000000000
+      internalID: -8959033419905182200
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Girls Bathroom_0: -1533624189924268217
+      RatANIMATION3_0: -8959033419905182200
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
