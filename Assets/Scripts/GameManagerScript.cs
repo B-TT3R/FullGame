@@ -6,6 +6,7 @@ public class GameManagerScript : MonoBehaviour
 
     public GameObject gameOverUI;
     public GameObject timesuptext;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
