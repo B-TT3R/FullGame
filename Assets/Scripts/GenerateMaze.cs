@@ -10,7 +10,7 @@ public class GenerateMaze : MonoBehaviour
   GameObject roomPrefab;
 
   // The grid.
-  Room[,] _rooms;
+  Room[,] _rooms = null;
 
   [SerializeField]
   int numX = 10;
@@ -18,13 +18,13 @@ public class GenerateMaze : MonoBehaviour
   int numY = 10;
 
   // The room width and height.
-  float _roomWidth;
-  float _roomHeight;
+  float roomWidth;
+  float roomHeight;
 
   // The stack for backtracking.
-  Stack<Room> _stack = new Stack<Room>();
+  Stack<Room> stack = new Stack<Room>();
 
-  bool _generating;
+  bool generating = false;
 
   private void GetRoomSize()
   {
@@ -45,19 +45,19 @@ public class GenerateMaze : MonoBehaviour
         ren.bounds.max);
     }
 
-    _roomWidth = maxBounds.x - minBounds.x;
-    _roomHeight = maxBounds.y - minBounds.y;
+    roomWidth = maxBounds.x - minBounds.x;
+    roomHeight = maxBounds.y - minBounds.y;
   }
 
 
   private void SetCamera()
   {
-    Camera.main!.transform.position = new Vector3(
-      numX * (_roomWidth - 1) / 2,
-      numY * (_roomHeight - 1) / 2,
+    Camera.main.transform.position = new Vector3(
+      numX * (roomWidth - 1) / 2,
+      numY * (roomHeight - 1) / 2,
       -100.0f);
 
-    float minValue = Mathf.Min(numX * (_roomWidth - 1), numY * (_roomHeight - 1));
+    float minValue = Mathf.Min(numX * (roomWidth - 1), numY * (roomHeight - 1));
     Camera.main.orthographicSize = minValue * 0.75f;
   }
 
@@ -72,7 +72,7 @@ public class GenerateMaze : MonoBehaviour
       for(int j = 0; j < numY; ++j)
       {
         GameObject room = Instantiate(roomPrefab,
-          new Vector3(i * _roomWidth, j * _roomHeight, 0.0f),
+          new Vector3(i * roomWidth, j * roomHeight, 0.0f),
           Quaternion.identity);
 
         room.name = "Room_" + i.ToString() + "_" + j.ToString();
@@ -201,9 +201,9 @@ public class GenerateMaze : MonoBehaviour
 
   private bool GenerateStep()
   {
-    if (_stack.Count == 0) return true;
+    if (stack.Count == 0) return true;
 
-    Room r = _stack.Peek();
+    Room r = stack.Peek();
     var neighbours = GetNeighboursNotVisited(r.Index.x, r.Index.y);
     
     if(neighbours.Count != 0)
@@ -219,11 +219,11 @@ public class GenerateMaze : MonoBehaviour
       neighbour.visited = true;
       RemoveRoomWall(r.Index.x, r.Index.y, item.Item1);
 
-      _stack.Push(neighbour);
+      stack.Push(neighbour);
     }
     else
     {
-      _stack.Pop();
+      stack.Pop();
     }
 
     return false;
@@ -231,22 +231,20 @@ public class GenerateMaze : MonoBehaviour
 
   public void CreateMaze()
   {
-    if (_generating) return;
+    if (generating) return;
 
     Reset();
-
-    RemoveRoomWall(0, 0, Room.Directions.BOTTOM);
-
+    
     RemoveRoomWall(numX - 1, numY - 1, Room.Directions.RIGHT);
 
-    _stack.Push(_rooms[0, 0]);
+    stack.Push(_rooms[0, 0]);
 
     StartCoroutine(Coroutine_Generate());
   }
 
   IEnumerator Coroutine_Generate()
   {
-    _generating = true;
+    generating = true;
     bool flag = false;
     while(!flag)
     {
@@ -254,7 +252,7 @@ public class GenerateMaze : MonoBehaviour
       yield return new WaitForSeconds(0.05f);
     }
 
-    _generating = false;
+    generating = false;
   }
 
   private void Reset()
@@ -276,7 +274,7 @@ public class GenerateMaze : MonoBehaviour
   {
     if(Keyboard.current.spaceKey.wasPressedThisFrame)
     {
-      if(!_generating)
+      if(!generating)
       {
         CreateMaze();
       }
