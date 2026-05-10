@@ -35,7 +35,7 @@ public class Room : MonoBehaviour
     Dictionary<Directions, bool> dirflags =
         new Dictionary<Directions, bool>();
 
-    private void Start()
+    private void Awake()
     {
         walls[Directions.TOP] = topWall;
         walls[Directions.RIGHT] = rightWall;
@@ -61,6 +61,21 @@ public class Room : MonoBehaviour
         if (fogOverlay != null)
         {
             fogOverlay.SetActive(false); // disables the fog
+        }
+    }
+    
+    public void RevealNeighbors()
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 15f);
+
+        foreach (Collider2D hit in hits)
+        {
+            Room room = hit.GetComponent<Room>();
+
+            if (room != null)
+            {
+                room.Reveal();
+            }
         }
     }
 }
