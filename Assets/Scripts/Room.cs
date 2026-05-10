@@ -12,81 +12,45 @@ public class Room : MonoBehaviour
         NONE,
     }
 
-    [Header("Wall GameObjects (assign in inspector)")]
-    [SerializeField] private GameObject topWall;
-    [SerializeField] private GameObject rightWall;
-    [SerializeField] private GameObject bottomWall;
-    [SerializeField] private GameObject leftWall;
+    [SerializeField]
+    GameObject topWall;
+    [SerializeField]
+    GameObject rightWall;
+    [SerializeField]
+    GameObject bottomWall;
+    [SerializeField]
+    GameObject leftWall;
 
-    private Dictionary<Directions, GameObject> walls =
+    Dictionary<Directions, GameObject> walls =
         new Dictionary<Directions, GameObject>();
 
-    [Header("Fog Overlay (optional)")]
-    [SerializeField] private GameObject fogOverlay;
+    public Vector2Int Index
+    {
+        get;
+        set;
+    }
 
-    // Flags for wall existence
-    private Dictionary<Directions, bool> dirflags =
-        new Dictionary<Directions, bool>();
-
-    public Vector2Int Index { get; set; }
     public bool visited { get; set; } = false;
 
-    private void Awake()
+    Dictionary<Directions, bool> dirflags =
+        new Dictionary<Directions, bool>();
+
+    private void Start()
     {
-        // Initialize walls dictionary
         walls[Directions.TOP] = topWall;
         walls[Directions.RIGHT] = rightWall;
         walls[Directions.BOTTOM] = bottomWall;
         walls[Directions.LEFT] = leftWall;
-
-        // Initialize all walls as present
-        foreach (var dir in walls.Keys)
-        {
-            if (walls[dir] != null)
-            {
-                dirflags[dir] = true;
-                walls[dir].SetActive(true);
-            }
-        }
     }
 
-    /// <summary>
-    /// Sets the wall GameObject active or inactive and updates the flag
-    /// </summary>
-    public void SetDirFlag(Directions dir, bool exists)
+    private void SetActive(Directions dir, bool flag)
     {
-        dirflags[dir] = exists;
-
-        if (walls.ContainsKey(dir) && walls[dir] != null)
-        {
-            walls[dir].SetActive(exists);
-        }
+        walls[dir].SetActive(flag);
     }
 
-    /// <summary>
-    /// Reveal this room (for fog-of-war)
-    /// </summary>
-    public void Reveal()
+    public void SetDirFlag(Directions dir, bool flag)
     {
-        if (fogOverlay != null)
-        {
-            fogOverlay.SetActive(false);
-        }
-    }
-
-    /// <summary>
-    /// Reveal neighboring rooms within a radius
-    /// </summary>
-    public void RevealNeighbors()
-    {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 15f);
-        foreach (Collider2D hit in hits)
-        {
-            Room room = hit.GetComponent<Room>();
-            if (room != null)
-            {
-                room.Reveal();
-            }
-        }
+        dirflags[dir] = flag;
+        SetActive(dir, flag);
     }
 }

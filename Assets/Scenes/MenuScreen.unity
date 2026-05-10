@@ -1878,6 +1878,7 @@ MonoBehaviour:
   sceneNames:
   - MainMenu
   - SecurityGuardScene
+  - MazeGeneration
   instanceName: Core Memories
 --- !u!1001 &7325605327083484531
 PrefabInstance:

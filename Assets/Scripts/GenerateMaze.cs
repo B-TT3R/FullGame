@@ -10,19 +10,21 @@ public class GenerateMaze : MonoBehaviour
   GameObject roomPrefab;
 
   // The grid.
-  internal Room[,] rooms = null;
+  Room[,] _rooms;
 
-  [SerializeField] internal int numX = 10;
-  [SerializeField] internal int numY = 10;
+  [SerializeField]
+  int numX = 10;
+  [SerializeField]
+  int numY = 10;
 
   // The room width and height.
-  internal float roomWidth;
-  internal float roomHeight;
+  float _roomWidth;
+  float _roomHeight;
 
   // The stack for backtracking.
-  Stack<Room> stack = new Stack<Room>();
+  Stack<Room> _stack = new Stack<Room>();
 
-  bool generating = false;
+  bool _generating;
 
   private void GetRoomSize()
   {
@@ -43,39 +45,39 @@ public class GenerateMaze : MonoBehaviour
         ren.bounds.max);
     }
 
-    roomWidth = maxBounds.x - minBounds.x;
-    roomHeight = maxBounds.y - minBounds.y;
+    _roomWidth = maxBounds.x - minBounds.x;
+    _roomHeight = maxBounds.y - minBounds.y;
   }
 
 
   private void SetCamera()
   {
-    Camera.main.transform.position = new Vector3(
-      numX * (roomWidth - 1) / 2,
-      numY * (roomHeight - 1) / 2,
+    Camera.main!.transform.position = new Vector3(
+      numX * (_roomWidth - 1) / 2,
+      numY * (_roomHeight - 1) / 2,
       -100.0f);
 
-    float min_value = Mathf.Min(numX * (roomWidth - 1), numY * (roomHeight - 1));
-    Camera.main.orthographicSize = min_value * 0.75f;
+    float minValue = Mathf.Min(numX * (_roomWidth - 1), numY * (_roomHeight - 1));
+    Camera.main.orthographicSize = minValue * 0.75f;
   }
 
   private void Start()
   {
     GetRoomSize();
 
-    rooms = new Room[numX, numY];
+    _rooms = new Room[numX, numY];
 
     for(int i = 0; i < numX; ++i)
     {
       for(int j = 0; j < numY; ++j)
       {
         GameObject room = Instantiate(roomPrefab,
-          new Vector3(i * roomWidth, j * roomHeight, 0.0f),
+          new Vector3(i * _roomWidth, j * _roomHeight, 0.0f),
           Quaternion.identity);
 
         room.name = "Room_" + i.ToString() + "_" + j.ToString();
-        rooms[i, j] = room.GetComponent<Room>();
-        rooms[i, j].Index = new Vector2Int(i, j);
+        _rooms[i, j] = room.GetComponent<Room>();
+        _rooms[i, j].Index = new Vector2Int(i, j);
       }
     }
 
@@ -89,7 +91,7 @@ public class GenerateMaze : MonoBehaviour
   {
     if (dir != Room.Directions.NONE)
     {
-      rooms[x, y].SetDirFlag(dir, false);
+      _rooms[x, y].SetDirFlag(dir, false);
     }
 
     Room.Directions opp = Room.Directions.NONE;
@@ -126,7 +128,7 @@ public class GenerateMaze : MonoBehaviour
     }
     if (opp != Room.Directions.NONE)
     {
-      rooms[x, y].SetDirFlag(opp, false);
+      _rooms[x, y].SetDirFlag(opp, false);
     }
   }
 
@@ -148,11 +150,11 @@ public class GenerateMaze : MonoBehaviour
           if(y < numY - 1)
           {
             ++y;
-            if (!rooms[x,y].visited)
+            if (!_rooms[x,y].visited)
             {
               neighbours.Add(new Tuple<Room.Directions, Room>(
                 Room.Directions.TOP, 
-                rooms[x, y]));
+                _rooms[x, y]));
             }
           }
           break;
@@ -160,11 +162,11 @@ public class GenerateMaze : MonoBehaviour
           if(x < numX - 1)
           {
             ++x;
-            if (!rooms[x, y].visited)
+            if (!_rooms[x, y].visited)
             {
               neighbours.Add(new Tuple<Room.Directions, Room>(
                 Room.Directions.RIGHT,
-                rooms[x, y]));
+                _rooms[x, y]));
             }
           }
           break;
@@ -172,11 +174,11 @@ public class GenerateMaze : MonoBehaviour
           if (y > 0)
           {
             --y;
-            if (!rooms[x, y].visited)
+            if (!_rooms[x, y].visited)
             {
               neighbours.Add(new Tuple<Room.Directions, Room>(
                 Room.Directions.BOTTOM,
-                rooms[x, y]));
+                _rooms[x, y]));
             }
           }
           break;
@@ -184,11 +186,11 @@ public class GenerateMaze : MonoBehaviour
           if (x > 0)
           {
             --x;
-            if (!rooms[x, y].visited)
+            if (!_rooms[x, y].visited)
             {
               neighbours.Add(new Tuple<Room.Directions, Room>(
                 Room.Directions.LEFT,
-                rooms[x, y]));
+                _rooms[x, y]));
             }
           }
           break;
@@ -199,9 +201,9 @@ public class GenerateMaze : MonoBehaviour
 
   private bool GenerateStep()
   {
-    if (stack.Count == 0) return true;
+    if (_stack.Count == 0) return true;
 
-    Room r = stack.Peek();
+    Room r = _stack.Peek();
     var neighbours = GetNeighboursNotVisited(r.Index.x, r.Index.y);
     
     if(neighbours.Count != 0)
@@ -217,11 +219,11 @@ public class GenerateMaze : MonoBehaviour
       neighbour.visited = true;
       RemoveRoomWall(r.Index.x, r.Index.y, item.Item1);
 
-      stack.Push(neighbour);
+      _stack.Push(neighbour);
     }
     else
     {
-      stack.Pop();
+      _stack.Pop();
     }
 
     return false;
@@ -229,7 +231,7 @@ public class GenerateMaze : MonoBehaviour
 
   public void CreateMaze()
   {
-    if (generating) return;
+    if (_generating) return;
 
     Reset();
 
@@ -237,14 +239,14 @@ public class GenerateMaze : MonoBehaviour
 
     RemoveRoomWall(numX - 1, numY - 1, Room.Directions.RIGHT);
 
-    stack.Push(rooms[0, 0]);
+    _stack.Push(_rooms[0, 0]);
 
     StartCoroutine(Coroutine_Generate());
   }
 
   IEnumerator Coroutine_Generate()
   {
-    generating = true;
+    _generating = true;
     bool flag = false;
     while(!flag)
     {
@@ -252,7 +254,7 @@ public class GenerateMaze : MonoBehaviour
       yield return new WaitForSeconds(0.05f);
     }
 
-    generating = false;
+    _generating = false;
   }
 
   private void Reset()
@@ -261,11 +263,11 @@ public class GenerateMaze : MonoBehaviour
     {
       for(int j = 0; j < numY; ++j)
       {
-        rooms[i, j].SetDirFlag(Room.Directions.TOP, true);
-        rooms[i, j].SetDirFlag(Room.Directions.RIGHT, true);
-        rooms[i, j].SetDirFlag(Room.Directions.BOTTOM, true);
-        rooms[i, j].SetDirFlag(Room.Directions.LEFT, true);
-        rooms[i, j].visited = false;
+        _rooms[i, j].SetDirFlag(Room.Directions.TOP, true);
+        _rooms[i, j].SetDirFlag(Room.Directions.RIGHT, true);
+        _rooms[i, j].SetDirFlag(Room.Directions.BOTTOM, true);
+        _rooms[i, j].SetDirFlag(Room.Directions.LEFT, true);
+        _rooms[i, j].visited = false;
       }
     }
   }
@@ -274,7 +276,7 @@ public class GenerateMaze : MonoBehaviour
   {
     if(Keyboard.current.spaceKey.wasPressedThisFrame)
     {
-      if(!generating)
+      if(!_generating)
       {
         CreateMaze();
       }
