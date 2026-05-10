@@ -1197,7 +1197,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -8331392187805388992, guid: 405552b7889e051409402672c5f165aa, type: 3}
+  m_Sprite: {fileID: -296642075692289228, guid: 8d66abaef250f0b44924a444ea7648ad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1216,8 +1216,8 @@ Transform:
   m_GameObject: {fileID: 1363247554}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.29, y: -2.25, z: 0}
-  m_LocalScale: {x: 7.0105715, y: 6.75688, z: 5.1930156}
+  m_LocalPosition: {x: 0.14, y: 0.94, z: 0}
+  m_LocalScale: {x: 10.790671, y: 10.400189, z: 7.993089}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1879,6 +1879,8 @@ MonoBehaviour:
   - MainMenu
   - SecurityGuardScene
   - MazeGeneration
+  - MensBathroom
+  - WomensbathroomScene
   instanceName: Core Memories
 --- !u!1001 &7325605327083484531
 PrefabInstance:

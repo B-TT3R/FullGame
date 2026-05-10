@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -236,6 +237,7 @@ public class GenerateMaze : MonoBehaviour
     Reset();
     
     RemoveRoomWall(numX - 1, numY - 1, Room.Directions.RIGHT);
+   
 
     stack.Push(_rooms[0, 0]);
 
