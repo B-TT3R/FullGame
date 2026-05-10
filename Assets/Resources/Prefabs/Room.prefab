@@ -364,6 +364,37 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &4475896613652947964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 462623460402863292}
+  m_Layer: 0
+  m_Name: FogOverlay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &462623460402863292
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4475896613652947964}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1992734554956887809}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4772274435269977637
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,6 +616,7 @@ Transform:
   - {fileID: 4662486852070605298}
   - {fileID: 1300116467027239778}
   - {fileID: 7369615335303434233}
+  - {fileID: 462623460402863292}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2774587195090923525
@@ -601,8 +633,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Room
   topWall: {fileID: 2797049839231210534}
   rightWall: {fileID: 4061919280445761306}
-  leftWall: {fileID: 4772274435269977637}
   bottomWall: {fileID: 6522400096350815735}
+  leftWall: {fileID: 4772274435269977637}
 --- !u!1 &8680041396744151118
 GameObject:
   m_ObjectHideFlags: 0

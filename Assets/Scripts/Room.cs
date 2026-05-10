@@ -1,27 +1,27 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-
     public enum Directions
     {
-        Up,
-        Down,
-        Left,
-        Right
+        TOP,
+        RIGHT,
+        BOTTOM,
+        LEFT,
+        NONE,
     }
+
     [SerializeField]
     GameObject topWall;
     [SerializeField]
     GameObject rightWall;
     [SerializeField]
-    GameObject leftWall;
-    [SerializeField]
     GameObject bottomWall;
-    
-    Dictionary<Directions, GameObject> walls= 
+    [SerializeField]
+    GameObject leftWall;
+
+    Dictionary<Directions, GameObject> walls =
         new Dictionary<Directions, GameObject>();
 
     public Vector2Int Index
@@ -31,25 +31,36 @@ public class Room : MonoBehaviour
     }
 
     public bool visited { get; set; } = false;
-    
+
     Dictionary<Directions, bool> dirflags =
         new Dictionary<Directions, bool>();
 
     private void Start()
     {
-        walls[Directions.Up]=topWall;
-        walls[Directions.Down]=bottomWall;
-        walls[Directions.Left]=leftWall;
-        walls[Directions.Right]=rightWall;
+        walls[Directions.TOP] = topWall;
+        walls[Directions.RIGHT] = rightWall;
+        walls[Directions.BOTTOM] = bottomWall;
+        walls[Directions.LEFT] = leftWall;
     }
+
     private void SetActive(Directions dir, bool flag)
     {
-      walls[dir].SetActive(flag);
+        walls[dir].SetActive(flag);
     }
 
     public void SetDirFlag(Directions dir, bool flag)
     {
         dirflags[dir] = flag;
         SetActive(dir, flag);
+    }
+    [SerializeField]
+    GameObject fogOverlay; // assign in inspector
+
+    public void Reveal()
+    {
+        if (fogOverlay != null)
+        {
+            fogOverlay.SetActive(false); // disables the fog
+        }
     }
 }
