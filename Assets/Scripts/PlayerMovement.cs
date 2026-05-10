@@ -1,19 +1,19 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    private Vector2 moveInput;
+    public float moveSpeed = 5f;
     private Rigidbody2D rb;
-
-    [SerializeField] private float moveSpeed = 5f;
+    private Vector2 moveInput;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
     }
 
-    // Called automatically by Input System
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
@@ -21,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = moveInput * moveSpeed;
+        Vector2 normalizedInput = moveInput.normalized;
+
+        // Set velocity, let physics handle collisions
+        rb.linearVelocity = normalizedInput * moveSpeed;
     }
 }
