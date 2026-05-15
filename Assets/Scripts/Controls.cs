@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class Controls : MonoBehaviour {
    
-    public GameObject MainMenu;
+    [FormerlySerializedAs("MainMenu")] public GameObject mainMenu;
     
-    // Update is called once per frame
     void Update()
     {
 

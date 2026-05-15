@@ -1558,7 +1558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8671cf2cb5664d2468d0f79bc7afe7fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Controls
-  MainMenu: {fileID: 960047014}
+  mainMenu: {fileID: 960047014}
 --- !u!4 &857476870
 Transform:
   m_ObjectHideFlags: 0
@@ -1591,7 +1591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8671cf2cb5664d2468d0f79bc7afe7fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Controls
-  MainMenu: {fileID: 960047014}
+  mainMenu: {fileID: 960047014}
 --- !u!1 &1241047473
 GameObject:
   m_ObjectHideFlags: 0
@@ -2034,7 +2034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8671cf2cb5664d2468d0f79bc7afe7fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Controls
-  MainMenu: {fileID: 960047014}
+  mainMenu: {fileID: 960047014}
 --- !u!114 &1399806903
 MonoBehaviour:
   m_ObjectHideFlags: 0
