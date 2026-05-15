@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 public class Controls : MonoBehaviour {
@@ -13,7 +12,11 @@ public class Controls : MonoBehaviour {
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             Time.timeScale = 1f;
-            SceneManager.LoadScene("MenuScreen");
+            gameObject.SetActive(false);
+            mainMenu.SetActive(true);
+            if(mainMenu.activeInHierarchy)
+                Time.timeScale = 0f;
+                
         }
         
     }
